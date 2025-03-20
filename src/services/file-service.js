@@ -1,4 +1,5 @@
 const { prisma } = require("../prisma-client/prisma-client");
+const uploadToCloudinary = require("../storage/cloudinary");
 const directoryService = require("./directory-service");
 
 const create = async (
@@ -7,7 +8,8 @@ const create = async (
   fileName,
   nameOnStorage,
   size,
-  mimeType
+  mimeType,
+  pathOnServer
 ) => {
   try {
     if (!(await directoryService.isDirectoryOfUser(directoryId, userId))) {
@@ -15,6 +17,8 @@ const create = async (
         `The user with ID ${userId} cannot manipulate the directory with ID ${directoryId}.`
       );
     }
+
+    await uploadToCloudinary(userId, directoryId, pathOnServer);
 
     const newFile = await prisma.file.create({
       data: {

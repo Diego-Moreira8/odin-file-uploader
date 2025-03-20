@@ -37,8 +37,6 @@ const getDirectoryPage = async (req, res, next) => {
     await directoryService.getUserDirectories(req.user.id)
   );
 
-  console.dir(allDirectories);
-
   res.render("layout", {
     template: "pages/file-explorer",
     directory: res.locals.directory,

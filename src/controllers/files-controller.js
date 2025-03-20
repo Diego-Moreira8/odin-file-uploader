@@ -1,6 +1,6 @@
-const fileService = require("../services/file-service");
-const path = require("path");
 const fs = require("fs/promises");
+const path = require("path");
+const fileService = require("../services/file-service");
 
 /** @type {import("express").RequestHandler} */
 const getFileDetails = (req, res, next) => {
@@ -27,7 +27,8 @@ const uploadFile = async (req, res, next) => {
       req.file.originalname,
       req.file.filename,
       req.file.size,
-      req.file.mimetype
+      req.file.mimetype,
+      req.file.path
     );
 
     return reloadDirectory();

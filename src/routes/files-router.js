@@ -4,13 +4,13 @@ const {
   checkUser,
 } = require("../middlewares/custom-middlewares");
 const filesController = require("../controllers/files-controller");
-const multer = require("../middlewares/multer");
+const uploadToServer = require("../middlewares/multer");
 
 const filesRouter = Router();
 
 filesRouter.use(checkUser);
 
-filesRouter.post("/enviar", multer.uploadFile, filesController.uploadFile);
+filesRouter.post("/enviar", uploadToServer, filesController.uploadFile);
 
 filesRouter.get(
   "/:id/baixar",
